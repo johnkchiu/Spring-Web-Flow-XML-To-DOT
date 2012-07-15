@@ -7,6 +7,14 @@ piped to file.
 
 To view the DOT file, you can use something like Graphviz - http://graphviz.org.
 
+Installation
+============
+To use it, just download the script.  Make it executable, and then use it.
+```
+$ wget https://raw.github.com/johnkchiu/Spring-Web-Flow-XML-To-DOT/master/springWebFlowXmlToDot.py
+$ chmod a+x springWebFlowXmlToDot.py
+```
+
 Usage
 =====
 ```
