@@ -41,10 +41,10 @@ def writeState(name, id, transitions):
 	# set fillColor & shipe
 	if name == 'subflow-state':
 		fillcolor = 'gray'
-		shape = 'oval'
+		shape = 'rectangle'
 	else :
 		fillcolor = 'white'
-		shape = 'rectangle'
+		shape = 'oval'
 	# write state info
 	print '\t // ' + name + ' (' + id + ')'
 	print '\t"' + id + '" [label="' + id + '", fontname="Helvetica", shape="' + shape + '", style="filled", fillcolor="' + fillcolor + '", width="2", height="1"];'

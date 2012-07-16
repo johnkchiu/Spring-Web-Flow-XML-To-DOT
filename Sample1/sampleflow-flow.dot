@@ -1,0 +1,36 @@
+digraph "sampleflow-flow.xml" {
+
+	// Start state
+	"Start" [label="Start", fontname="Helvetica", shape="circle", style="filled", fillcolor="green"];
+	"Start" -> "Page1";
+
+	 // view-state (Page1)
+	"Page1" [label="Page1", fontname="Helvetica", shape="oval", style="filled", fillcolor="white", width="2", height="1"];
+	"Page1" -> "ChooseNextView" [label="submit", fontname="Helvetica"];
+
+	 // action-state (ChooseNextView)
+	"ChooseNextView" [label="ChooseNextView", fontname="Helvetica", shape="oval", style="filled", fillcolor="white", width="2", height="1"];
+	"ChooseNextView" -> "Page1" [label="no", fontname="Helvetica"];
+	"ChooseNextView" -> "Page2" [label="yes", fontname="Helvetica"];
+
+	 // view-state (Page2)
+	"Page2" [label="Page2", fontname="Helvetica", shape="oval", style="filled", fillcolor="white", width="2", height="1"];
+	"Page2" -> "ExitOrRestart" [label="submit", fontname="Helvetica"];
+
+	 // action-state (ExitOrRestart)
+	"ExitOrRestart" [label="ExitOrRestart", fontname="Helvetica", shape="oval", style="filled", fillcolor="white", width="2", height="1"];
+	"ExitOrRestart" -> "Page1" [label="restart", fontname="Helvetica"];
+	"ExitOrRestart" -> "redirect" [label="redirect", fontname="Helvetica"];
+	"ExitOrRestart" -> "end" [label="end", fontname="Helvetica"];
+
+	 // end-state (redirect)
+	"redirect" [label="redirect", fontname="Helvetica", shape="oval", style="filled", fillcolor="white", width="2", height="1"];
+	"redirect" -> "End"
+
+	 // end-state (end)
+	"end" [label="end", fontname="Helvetica", shape="oval", style="filled", fillcolor="white", width="2", height="1"];
+	"end" -> "End"
+
+	// End state
+	"End" [label="End", fontname="Helvetica", shape="circle", style="filled", fillcolor="red"];
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+    start-state="Page1" parent="parentflow">
+
+    <!-- When the flow is entered, the expressions in this tag will be executed. -->
+    <on-start>
+        <evaluate expression="page1FlowAction.onFlowStart"/>
+        <evaluate expression="page2FlowAction.onFlowStart"/>
+    </on-start>
+    
+    <view-state id="Page1" view="sample/flow/page1flow">
+        <on-entry>
+            <evaluate expression="page1FlowAction.onEntry" />
+        </on-entry>
+        <transition on="submit" to="ChooseNextView">
+            <evaluate expression="page1FlowAction.onSubmit" />
+        </transition>
+    </view-state>
+
+    <action-state id="ChooseNextView">
+        <evaluate expression="page1FlowAction.shouldExit" />
+        <transition on="no" to="Page1" />
+        <transition on="yes" to="Page2" />
+    </action-state>
+
+    <view-state id="Page2" view="sample/flow/page2flow">
+        <on-entry>
+            <evaluate expression="page2FlowAction.onEntry" />
+        </on-entry>
+        <transition on="submit" to="ExitOrRestart">
+            <evaluate expression="page2FlowAction.onSubmit" />
+        </transition>
+    </view-state>
+
+    <action-state id="ExitOrRestart">
+        <evaluate expression="page2FlowAction.shouldExit" />
+        <transition on="restart" to="Page1" />
+        <transition on="redirect" to="redirect" />
+        <transition on="end" to="end" />
+    </action-state>
+    
+    <end-state id="redirect" view="externalRedirect:contextRelative:/"/>
+    <end-state id="end"/>
+
+</flow>
