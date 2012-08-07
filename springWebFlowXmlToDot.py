@@ -13,9 +13,18 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+#
+# --- Change Log ---------------------------------------------------
+# 0.2
+#	- Added support for decision-state
+# 0.1 
+#	- Changed shape/color, and added an example.
+#	- Add initial working file.
+# ------------------------------------------------------------------
 
 __author__ = 'johnkchiu@yahoo.com (John Chiu)'
-__version__ = '0.1'
+__version__ = '0.2'
+
 
 import argparse
 import xml.sax
