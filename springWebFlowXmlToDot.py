@@ -42,12 +42,18 @@ def writeState(name, id, transitions):
 	if name == 'subflow-state':
 		fillcolor = 'gray'
 		shape = 'rectangle'
+	elif name == 'view-state':
+		fillcolor = 'lightblue'
+		shape = 'rectangle'
+	elif name == 'decision-state':
+		fillcolor = 'white'
+		shape = 'diamond'
 	else :
 		fillcolor = 'white'
 		shape = 'oval'
 	# write state info
 	print '\t // ' + name + ' (' + id + ')'
-	print '\t"' + id + '" [label="' + id + '", fontname="Helvetica", shape="' + shape + '", style="filled", fillcolor="' + fillcolor + '", width="2", height="1"];'
+	print '\t"' + id + '" [label="' + id + '", fontname="Helvetica", shape="' + shape + '", style="filled", fillcolor="' + fillcolor + '", width="2.5", height="1"];'
 	# write state transitions
 	if len(transitions) > 0 :
 		for transition in transitions:
@@ -68,7 +74,7 @@ class SpringXmlHandler(xml.sax.ContentHandler):
 		# if name == 'flow':
 		# 	writeStartState(attributes.getValue('start-state'))
 		# el
-		if name in ('action-state', 'view-state', 'subflow-state', 'end-state'):
+		if name in ('action-state', 'view-state', 'decision-state', 'subflow-state', 'end-state'):
 			self.id = attributes.getValue('id')
 		elif name == 'transition':
 			# iterate thru attributes and add to 'transition' dict
@@ -77,20 +83,31 @@ class SpringXmlHandler(xml.sax.ContentHandler):
 					self.transition['on'] = v
 				elif k == 'to':
 					self.transition['to'] = v
+			self.transitions.append(self.transition)
+			self.transition = {}
+		elif name == 'if':
+			# add two transition for 'then' and 'else'
+			for (k,v) in attributes.items():
+				if k == 'then' :
+					self.transition['on'] = 'yes'
+					self.transition['to'] = v
+					self.transitions.append(self.transition)
+					self.transition = {}
+				elif k == 'else' :
+					self.transition['on'] = 'no'
+					self.transition['to'] = v
+					self.transitions.append(self.transition)
+					self.transition = {}
 
 	def endElement(self, name):
 		if name == 'flow':
 			writeEndState()
-		elif name in ('action-state', 'view-state', 'subflow-state', 'end-state'):
+		elif name in ('action-state', 'view-state', 'decision-state', 'subflow-state', 'end-state'):
 			if self.isFirstState == True:
 				writeStartState(self.id)
 				self.isFirstState = False
 			writeState(name, self.id, self.transitions)
 			self.transitions = []
-		elif name == 'transition':
-			# add to 'transitions' array	
-			self.transitions.append(self.transition)
-			self.transition = {}
 
 # Method for converting Spring XML to DOT file
 def convertSpringXmlFile(filename):
