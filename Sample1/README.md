@@ -93,4 +93,4 @@ digraph "sampleflow-flow.xml" {
 
 Example of DOT graph
 ====================
-![sampleflow-flow.png](/johnkchiu/Spring-Web-Flow-XML-To-DOT/raw/master/Sample1/sampleflow-flow.png)
+![sampleflow-flow.png](https://raw.github.com/johnkchiu/Spring-Web-Flow-XML-To-DOT/master/Sample1/sampleflow-flow.png)
